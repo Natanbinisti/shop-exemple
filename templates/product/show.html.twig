@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+<div class="p-3">
+    <div class="form-control">
+        <h3>{{ product.name }}</h3>
+        <h4>Description : {{ product.description }}</h4>
+        <p>Prix : {{ product.price }}</p>
+        <p>le {{ product.createdAt|date("m/d/Y") }}</p>
+        <a href="{{ path('app_product') }}" class="btn btn-secondary">Back</a>
+        <a href="{{ path('delete_product',{id:product.id}) }}" class="btn btn-danger">Supprimer</a>
+    </div>
+</div>
+
+{% endblock %}

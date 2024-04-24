@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+        <tr>
+            <th scope="row">{{ item.product.name }}</th>
+            <th scope="row">{{ item.product.price }}</th>
+            <th scope="row">{{ item.quantity }}</th>
+            <th scope="row">{{ item.product.price * item.quantity }}</th>
+            <td>
+                <a href="{{ path('app_cart_add_fromcart', {id:item.product.id, quantity:1}) }}" class="btn btn-success">+</a>
+                <a href="{{ path('app_cart_remove_one', {id:item.product.id, quantity:1}) }}" class="btn btn-secondary">-</a>
+                <a href="{{ path('app_cart_remove_row', {id:item.product.id, quantity:1}) }}" class="btn btn-danger">X</a>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr class="table-secondary">
+            <td><a href="{{ path('app_cart_empty') }}" class="btn btn-danger">Vider le panier</a></td>
+            <td colspan="2">Cout total :</td>
+            <td colspan="">{{ total }}</td>
+            <td><a href="" class="btn btn-success">Valider panier</a></td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

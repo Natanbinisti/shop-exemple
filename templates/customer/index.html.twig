@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CustomerController!{% endblock %}
+
+{% block body %}
+
+    <div class="products mt-5">
+        {% for product in products %}
+            <div class="border border-dark col-3">
+                <h3>{{ product.name }}</h3>
+                <h3>Price : {{ product.price }}</h3>
+                <a href="{{ path('app_cart_add', {id:product.id, quantity:1}) }}" class="btn btn-success">Add to cart</a>
+
+                <a href="{{ path('app_customer_show',{id:product.id}) }}" class="btn btn-primary">See</a>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
