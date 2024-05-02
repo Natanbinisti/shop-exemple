@@ -43,15 +43,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $paymentMethods;
 
     /**
-     * @var Collection<int, Adress>
+     * @var Collection<int, Address>
      */
-    #[ORM\OneToMany(targetEntity: Adress::class, mappedBy: 'owner')]
-    private Collection $adresses;
+    #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'owner', orphanRemoval: true)]
+    private Collection $addresses;
+
+    /**
+     * @var Collection<int, Order>
+     */
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'customer')]
+    private Collection $orders;
 
     public function __construct()
     {
         $this->paymentMethods = new ArrayCollection();
-        $this->adresses = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,29 +167,59 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Adress>
+     * @return Collection<int, Address>
      */
-    public function getAdresses(): Collection
+    public function getAddresses(): Collection
     {
-        return $this->adresses;
+        return $this->addresses;
     }
 
-    public function addAdress(Adress $adress): static
+    public function addAddress(Address $address): static
     {
-        if (!$this->adresses->contains($adress)) {
-            $this->adresses->add($adress);
-            $adress->setOwner($this);
+        if (!$this->addresses->contains($address)) {
+            $this->addresses->add($address);
+            $address->setOwner($this);
         }
 
         return $this;
     }
 
-    public function removeAdress(Adress $adress): static
+    public function removeAddress(Address $address): static
     {
-        if ($this->adresses->removeElement($adress)) {
+        if ($this->addresses->removeElement($address)) {
             // set the owning side to null (unless already changed)
-            if ($adress->getOwner() === $this) {
-                $adress->setOwner(null);
+            if ($address->getOwner() === $this) {
+                $address->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getCustomer() === $this) {
+                $order->setCustomer(null);
             }
         }
 

@@ -1,6 +1,23 @@
 <nav class="navbar navbar-expand-lg bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Navbar</a>
+        <a class="navbar-brand" href="/">Boutique</a>
+        {% if app.user %}
+            {% if is_granted('ROLE_ADMIN') %}
+
+                <a class="nav-link me-3" href="{{ path('app_product_admin') }}">Admin</a>
+
+                <a href="{{ path('app_profile') }}" class="nav-link">{{ app.user.email }}</a>
+
+
+                <a class="nav-link ms-3" href="{{ path('app_logout') }}">Logout</a>
+
+
+
+            {% elseif is_granted('ROLE_USER')  %}
+                <a href="{{ path('app_profile') }}" class="nav-link">{{ app.user.email }}</a>
+                <a class="nav-link ms-3" href="{{ path('app_logout') }}">Logout</a>
+            {% endif %}
+        {% endif %}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,9 +28,6 @@
                 </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('create_product') }}">Create</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_register') }}">Register</a>
