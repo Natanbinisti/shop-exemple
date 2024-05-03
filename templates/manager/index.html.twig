@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ManagerController!{% endblock %}
+
+{% block body %}
+
+
+        <div class="card mb-4 mt-4 col-8 mx-auto">
+            <div class="card-header">
+                <h5 class="card-title">Commande :</h5>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-striped">
+                    <tbody>
+                    {% for order in orders %}
+                        <div class="form-control">
+                            <h4 class="text-danger">De {{ order.customer.email}}</h4>
+                            <h5>Id : {{ order.id }}</h5>
+                            <p></p>
+                            <h5>statut : {{ order.status }}</h5>
+                            <div>
+                                <a href="{{ path('app_manager_status', {id:order.id}) }}" class="btn btn-warning">En route</a>
+                            </div>
+                        </div>
+                            {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+{% endblock %}

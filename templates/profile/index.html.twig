@@ -11,6 +11,30 @@
 
                     <div class="card mb-4 col-8 mx-auto">
                         <div class="card-header">
+                            <h5 class="card-title">Vos precedent achats :</h5>
+                        </div>
+                        <div class="card-body">*
+
+
+                            <table class="table table-striped">
+                                <tbody>
+                                    {% for item in order.orderItems %}
+                                            <h5>Produit : {{ item.product.name }}</h5>
+                                                <h4>Nombre : {{ item.quantity }}</h4>
+                                                <h4>Prix : {{ item.product.price }}</h4>
+
+                                    {% endfor %}
+                                </div>
+                                    <a href="{{ path('app_pdf_generator',{id:order.id}) }}" class="btn btn-secondary">Imprimer Facture</a>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="card mb-4 col-8 mx-auto">
+                        <div class="card-header">
                             <h5 class="card-title">Vos moyens de paiement :</h5>
                         </div>
                         <div class="card-body">

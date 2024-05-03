@@ -1,12 +1,8 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Order Summary{% endblock %}
-
 {% block body %}
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <h3 class="text-center mb-4">Récapitulatif de commande</h3>
+                <h3 class="text-center mb-4">Facture</h3>
 
                 <table class="table " style="line-height: 3rem;">
                     <thead>
@@ -53,9 +49,6 @@
 
                     </tfoot>
                 </table>
-                <div class="text-center mt-4">
-                    <a href="{{ path('app_pay', {id:order.id}) }}" class="btn btn-success"> Continuer vers la commande</a>
-                </div>
             </div>
         </div>
     </div>
